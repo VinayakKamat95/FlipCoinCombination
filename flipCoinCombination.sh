@@ -2,6 +2,8 @@
 
 declare -A singletDict
 declare -A doubletDict
+declare -A tripletDict
+
 
 NO_TIMES_COIN_FLIP=10
 IS_HEAD=1
@@ -16,6 +18,15 @@ htCount=0
 thCount=0
 ttCount=0
 
+#triplet variables
+hhhCount=0
+hhtCount=0
+hthCount=0
+httCount=0
+thhCount=0
+thtCount=0
+tthCount=0
+tttCount=0
 
 count=0
 
@@ -91,3 +102,72 @@ echo $thWinsPercent;
 
 ttWinsPercent=`echo "scale=3;$ttCount/$NO_TIMES_COIN_FLIP*100" | bc`
 echo $ttWinsPercent;
+
+
+count=0
+while [ $count -ne $NO_TIMES_COIN_FLIP  ]
+do
+	bin=$((RANDOM%2))
+	bin1=$((RANDOM%2))
+	bin2=$((RANDOM%2))
+
+	triplet=$bin$bin1$bin2
+
+	tripletDict[$count]=$triplet
+
+	case "$triplet" in
+		111)
+		((hhhCount+=1))
+		;;
+		110)
+		((hhtCount+=1))
+		;;
+		101)
+		((hthCount+=1))
+		;;
+		100)
+		((httCount+=1))
+		;;
+		011)
+		((thhCount+=1))
+		;;
+		010)
+		((thtCount+=1))
+		;;
+		001)
+		((tthCount+=1))
+		;;
+		000)
+		((tttCount+=1))
+		;;
+	esac
+
+((count++))
+
+done
+
+echo ${tripletDict[@]};
+
+hhhWinsPercent=`echo "scale=3;$hhhCount/$NO_TIMES_COIN_FLIP*100" | bc`
+echo $hhhWinsPercent;
+
+hhtWinsPercent=`echo "scale=3;$hhtCount/$NO_TIMES_COIN_FLIP*100" | bc`
+echo $hhtWinsPercent;
+
+hthWinsPercent=`echo "scale=3;$hthCount/$NO_TIMES_COIN_FLIP*100" | bc`
+echo $hthWinsPercent;
+
+httWinsPercent=`echo "scale=3;$httCount/$NO_TIMES_COIN_FLIP*100" | bc`
+echo $httWinsPercent;
+
+thhWinsPercent=`echo "scale=3;$thhCount/$NO_TIMES_COIN_FLIP*100" | bc`
+echo $thhWinsPercent;
+
+thtWinsPercent=`echo "scale=3;$thtCount/$NO_TIMES_COIN_FLIP*100" | bc`
+echo $thtWinsPercent;
+
+tthWinsPercent=`echo "scale=3;$tthCount/$NO_TIMES_COIN_FLIP*100" | bc`
+echo $tthWinsPercent;
+
+tttWinsPercent=`echo "scale=3;$tttCount/$NO_TIMES_COIN_FLIP*100" | bc`
+echo $tttWinsPercent;
